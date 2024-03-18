@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="list"
+            type="java.lang.String" />
+        <variable
+            name="onclick"
+            type="java.lang.FunctionalInterface" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+            <TextView
+                android:id="@+id/nameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{list}"
+                android:onClick="@{()->onclick}" />
+
+            <TextView
+                android:id="@+id/currentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="60sp" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"/>
+
+            <Button
+                android:id="@+id/longRunningBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="long running Task"/>
+
+            <Button
+                android:id="@+id/calculator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Calculator"/>
+
+            <Button
+                android:id="@+id/videoViewBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Video View"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Loading"
+            android:padding="10dp"
+            android:progress="100"
+            android:background="@drawable/gradient_background"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+</layout>

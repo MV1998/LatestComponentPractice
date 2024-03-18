@@ -1,0 +1,43 @@
+[versions]
+agp = "8.2.0"
+
+kotlin = "1.9.23"
+coreKtx = "1.12.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.10.0"
+activity = "1.8.0"
+constraintlayout = "2.1.4"
+#viewModelAndLiveDataVersion = "2.7.0"
+hilt = "2.44"
+kpsversion = "1.9.23-1.0.19"
+kaptversion = "1.9.23"
+xmppVer = "4.4.0"
+
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+#viewmodel = {group="androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref="viewModelAndLiveDataVersion", name="viewmodel"}
+#livedata = {group="androidx.lifecycle:lifecycle-livedata-ktx", version.ref="viewModelAndLiveDataVersion", name="livedata"}
+dagger = {group = "com.google.dagger", name="hilt-android", version.ref="hilt"}
+addXMPP = {group = "org.igniterealtime.smack", name="smack-android", version.ref="xmppVer"}
+addXMPPTCP = {group = "org.igniterealtime.smack", name="smack-tcp", version.ref="xmppVer"}
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+#kotlinkps = {id = "com.google.devtools.ksp", version.ref = "kpsversion"}
+kotlinKapt = {id = "org.jetbrains.kotlin.kapt", version.ref = "kaptversion"}
+daggerHilt = {id = "com.google.dagger.hilt.android", version.ref="hilt"}
