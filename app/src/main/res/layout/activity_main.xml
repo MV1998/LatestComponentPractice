@@ -62,6 +62,31 @@
                 android:layout_height="wrap_content"
                 android:text="Open Video View"/>
 
+            <Button
+                android:id="@+id/openListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open List View"/>
+
+            <Button
+                android:id="@+id/openRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Recycler View"/>
+
+            <Button
+                android:id="@+id/openFragmentActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Fragment Activity"/>
+
+
+            <Button
+                android:id="@+id/openDrawerLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Drawer Activity"/>
+
         </LinearLayout>
 
         <ProgressBar

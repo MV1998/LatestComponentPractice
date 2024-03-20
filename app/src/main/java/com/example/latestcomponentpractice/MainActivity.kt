@@ -12,6 +12,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.latestcomponentpractice.Screens.CalculatorActivity
+import com.example.latestcomponentpractice.Screens.DrawerActivityExample
+import com.example.latestcomponentpractice.Screens.FragmentPracticeActivity
+import com.example.latestcomponentpractice.Screens.ListViewActivity
+import com.example.latestcomponentpractice.Screens.RecyclerViewActivity
 import com.example.latestcomponentpractice.Screens.VideoViewActivity
 import com.example.latestcomponentpractice.ViewModel.UserViewModel
 import com.example.latestcomponentpractice.ViewModel.ViewModelState
@@ -108,6 +112,26 @@ class MainActivity : AppCompatActivity() {
             videoViewBtn.setOnClickListener {
                 val videoIntent = Intent(this@MainActivity, VideoViewActivity::class.java)
                 startActivity(videoIntent)
+            }
+
+            openListView.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, ListViewActivity::class.java)
+                startActivity(listViewIntent)
+            }
+
+            openRecyclerView.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, RecyclerViewActivity::class.java)
+                startActivity(listViewIntent)
+            }
+
+            openFragmentActivity.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, FragmentPracticeActivity::class.java)
+                startActivity(listViewIntent)
+            }
+
+            openDrawerLayout.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, DrawerActivityExample::class.java)
+                startActivity(listViewIntent)
             }
         }
 

@@ -265,4 +265,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.example.latestcomponentpractice.Screens.Graph
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:exampleString="Mohit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"></com.example.latestcomponentpractice.Screens.Graph>
 </androidx.constraintlayout.widget.ConstraintLayout>

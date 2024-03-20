@@ -8,13 +8,11 @@ class AcerMonitorBox(
     override val width: Double,
     override val id: Int) : Box() {
 
-    override suspend fun startPackaging() {
-        withContext(Dispatchers.IO) {
-            if (!isPackaged) {
-                println("$name is being packaged $id")
-                Thread.sleep(2000)
-                println("$name has been packaged $id")
-            }
+    override suspend fun startPackaging() : String{
+        if (!isPackaged) {
+            println("$name is being packaged $id")
+            Thread.sleep(2000)
         }
+        return "$name has been packaged $id"
     }
 }

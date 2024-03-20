@@ -8,5 +8,5 @@ abstract class Box {
     var isPackaged : Boolean = false
     var isDamaged : Boolean = false
 
-    abstract suspend fun startPackaging()
+    abstract suspend fun startPackaging() : String
 }
