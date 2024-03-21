@@ -61,6 +61,7 @@ class DrawerActivityExample : AppCompatActivity() {
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 
