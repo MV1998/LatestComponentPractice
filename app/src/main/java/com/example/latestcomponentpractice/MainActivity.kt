@@ -17,6 +17,7 @@ import com.example.latestcomponentpractice.Screens.FragmentPracticeActivity
 import com.example.latestcomponentpractice.Screens.ListViewActivity
 import com.example.latestcomponentpractice.Screens.RecyclerViewActivity
 import com.example.latestcomponentpractice.Screens.VideoViewActivity
+import com.example.latestcomponentpractice.Screens.ViewPagerExample
 import com.example.latestcomponentpractice.ViewModel.UserViewModel
 import com.example.latestcomponentpractice.ViewModel.ViewModelState
 import com.example.latestcomponentpractice.abstraction_practice.Animal
@@ -67,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             }
             currentTextView.text = "1"
             button.setOnClickListener {
-                Log.d("TAG", "onCreate: ${Thread.currentThread().name}")
                 currentTextView.text = "${currentTextView.text.toString().toInt() + 1}"
 
 
@@ -133,9 +133,12 @@ class MainActivity : AppCompatActivity() {
                 val listViewIntent = Intent(this@MainActivity, DrawerActivityExample::class.java)
                 startActivity(listViewIntent)
             }
-        }
 
-        Log.d(TAG, "onCreate: ")
+            viewPageOpenBtn.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, ViewPagerExample::class.java)
+                startActivity(listViewIntent)
+            }
+        }
 
         var mouse : String? = "Mohit"
         var n = mouse?.let {

@@ -10,19 +10,53 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.latestcomponentpractice.R
 import com.example.latestcomponentpractice.databinding.ActivityCalculatorBinding
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
+import java.util.concurrent.Executor
 
 class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityCalculatorBinding
     private val expression : StringBuilder = StringBuilder()
+    private val TAG = javaClass.simpleName
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
+        Log.d(TAG, "onCreate: ")
         binding = ActivityCalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
+        
         setClickListeners()
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart: ")
+        finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart: ")
     }
 
     private fun setClickListeners() {
@@ -112,4 +146,18 @@ class CalculatorActivity : AppCompatActivity(), View.OnClickListener {
         }
         Log.d(javaClass.simpleName, "onClick: $result")
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d(TAG, "onSaveInstanceState: ")
+    }
+
+    override fun registerScreenCaptureCallback(
+        executor: Executor,
+        callback: ScreenCaptureCallback
+    ) {
+        super.registerScreenCaptureCallback(executor, callback)
+        Log.d(TAG, "registerScreenCaptureCallback: ")
+    }
+
 }

@@ -3,14 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Fragment2"
-    android:background="@drawable/gradient_background"
-    android:id="@+id/frame2">
+    tools:context=".fragments.ViewPagerFragment3">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textFragmentId"
-        android:textSize="30sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />

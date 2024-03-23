@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.example.latestcomponentpractice.R
 
 class Fragment1 : Fragment() {
@@ -64,6 +65,18 @@ class Fragment1 : Fragment() {
     ): View? {
         Log.d(TAG, "onCreateView: ")
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_1, container, false)
+        val view =  inflater.inflate(R.layout.fragment_1, container, false)
+        val button = view.findViewById<Button>(R.id.fragmentBtn1)
+        button.setOnClickListener {
+            activity?.let {
+                it.supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.frameLayout,
+                        Fragment2())
+                    addToBackStack("1")
+                    commit()
+                }
+            }
+        }
+        return view;
     }
 }

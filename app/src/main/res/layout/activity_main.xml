@@ -87,6 +87,12 @@
                 android:layout_height="wrap_content"
                 android:text="Open Drawer Activity"/>
 
+            <Button
+                android:id="@+id/viewPageOpenBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Pager"/>
+
         </LinearLayout>
 
         <ProgressBar

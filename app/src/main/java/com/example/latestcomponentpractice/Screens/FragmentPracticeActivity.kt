@@ -40,6 +40,7 @@ class FragmentPracticeActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     override fun onClick(view: View?) {
+
         transaction = supportFragmentManager.beginTransaction()
         when (view?.id) {
             R.id.fragBtn1 ->
@@ -54,6 +55,7 @@ class FragmentPracticeActivity : AppCompatActivity(), View.OnClickListener{
                 )
             else -> {}
         }
+        //transaction.addToBackStack(R.id.fragBtn1.toString())
         transaction.commit()
     }
 }
