@@ -7,9 +7,6 @@
         <variable
             name="list"
             type="java.lang.String" />
-        <variable
-            name="onclick"
-            type="java.lang.FunctionalInterface" />
     </data>
 
     <RelativeLayout
@@ -28,8 +25,7 @@
                 android:id="@+id/nameView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{list}"
-                android:onClick="@{()->onclick}" />
+                android:text="@{list}" />
 
             <TextView
                 android:id="@+id/currentTextView"
@@ -92,6 +88,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="View Pager"/>
+
+            <Button
+                android:id="@+id/todoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open ToDo"/>
 
         </LinearLayout>
 

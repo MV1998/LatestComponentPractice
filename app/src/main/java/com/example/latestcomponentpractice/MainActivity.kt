@@ -16,9 +16,11 @@ import com.example.latestcomponentpractice.Screens.DrawerActivityExample
 import com.example.latestcomponentpractice.Screens.FragmentPracticeActivity
 import com.example.latestcomponentpractice.Screens.ListViewActivity
 import com.example.latestcomponentpractice.Screens.RecyclerViewActivity
+import com.example.latestcomponentpractice.Screens.TabLayoutWithViewPager
 import com.example.latestcomponentpractice.Screens.VideoViewActivity
 import com.example.latestcomponentpractice.Screens.ViewPagerExample
 import com.example.latestcomponentpractice.ViewModel.UserViewModel
+import com.example.latestcomponentpractice.ViewModel.UserViewModelProviderFactory
 import com.example.latestcomponentpractice.ViewModel.ViewModelState
 import com.example.latestcomponentpractice.abstraction_practice.Animal
 import com.example.latestcomponentpractice.abstraction_practice.Dog
@@ -28,6 +30,7 @@ import com.example.latestcomponentpractice.abstraction_practice.Horse
 import com.example.latestcomponentpractice.abstraction_practice.Mammal
 import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
+import com.example.latestcomponentpractice.todo_app.view.TodoActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,8 +48,9 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // factory for view model
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        // view model
+        userViewModel = ViewModelProvider(this,
+            UserViewModelProviderFactory(ViewModelState.Loading))[UserViewModel::class.java]
 
         userViewModel.receiveAllDataFromServer()
 
@@ -135,7 +139,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             viewPageOpenBtn.setOnClickListener {
-                val listViewIntent = Intent(this@MainActivity, ViewPagerExample::class.java)
+                val listViewIntent = Intent(this@MainActivity, TabLayoutWithViewPager::class.java)
+                startActivity(listViewIntent)
+            }
+            todoBtn.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, TodoActivity::class.java)
                 startActivity(listViewIntent)
             }
         }
