@@ -7,7 +7,6 @@
     android:background="@drawable/gradient_background"
     android:id="@+id/frame2">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textFragmentId"
         android:textSize="30sp"

@@ -33,19 +33,39 @@ import com.example.latestcomponentpractice.databinding.ActivityMainBinding
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.withContext
+import kotlin.math.log
+
+
+interface C {
+    fun add()
+}
+
+open class B {
+    open fun add() {
+
+    }
+}
+
+class A :B(), C {
+
+}
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var userViewModel : UserViewModel
     var currentText = "1"
     private final val TAG = javaClass.simpleName
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // view model
@@ -172,6 +192,45 @@ class MainActivity : AppCompatActivity() {
 //            ""
 //            11.1
 //        }
+        CoroutineScope(Dispatchers.IO).launch {
+            task1()
+            getTheFollowers()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+//            Log.d(TAG, "Second Coroutine Scope")
+            task2()
+        }
+    }
+
+    suspend fun task1() {
+        Log.d(TAG,"started task 1")
+        delay(1000)
+        Log.d(TAG,"finished task 1")
+    }
+
+    private suspend fun getTheFollowers() {
+      var job =  CoroutineScope(Dispatchers.IO).launch {
+            val fb = async { getFBFollowers() }
+            val insta = async { getInstaFollowers() }
+            binding.list = "${fb.await()} ${insta.await()}"
+        }
+        job.join()
+    }
+
+    suspend fun getFBFollowers() : Int {
+        delay(10000)
+        return 100
+    }
+    suspend fun getInstaFollowers() : Int {
+        delay(10000)
+        return 500
+    }
+
+    suspend fun task2() {
+        Log.d(TAG,"started task 2")
+        delay(1000)
+        Log.d(TAG,"finished task 2")
     }
 
     override fun onStart() {

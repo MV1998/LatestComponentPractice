@@ -4,6 +4,10 @@ import android.util.Log
 import com.example.latestcomponentpractice.Models.AcerMonitorBox
 import com.example.latestcomponentpractice.Models.AmazonDeliveryBox
 import com.example.latestcomponentpractice.Models.Box
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() {
@@ -24,9 +28,10 @@ fun main() {
         }
     }
     println("main: ${boxList.size}")
-    for (box in boxList) {
-        runBlocking {
-            box.startPackaging()
-        }
-    }
+//    for (box in boxList) {
+//        runBlocking {
+//            box.startPackaging()
+//        }
+//    }
+
 }
