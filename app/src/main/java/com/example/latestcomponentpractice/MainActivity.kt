@@ -1,6 +1,7 @@
 package com.example.latestcomponentpractice
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.ActionProvider.VisibilityListener
@@ -11,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.latestcomponentpractice.Screens.CalculatorActivity
 import com.example.latestcomponentpractice.Screens.DrawerActivityExample
 import com.example.latestcomponentpractice.Screens.FragmentPracticeActivity
@@ -31,29 +33,25 @@ import com.example.latestcomponentpractice.abstraction_practice.Mammal
 import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
+import java.util.concurrent.Flow
 import kotlin.math.log
-
-
-interface C {
-    fun add()
-}
-
-open class B {
-    open fun add() {
-
-    }
-}
-
-class A :B(), C {
-
-}
+import kotlin.math.sin
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,6 +65,10 @@ class MainActivity : AppCompatActivity() {
 //        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val single = Single
+        val s = Single
+        Log.d(TAG, "onCreate: ${single.hashCode()} ${s.hashCode()}")
 
         // view model
         userViewModel = ViewModelProvider(this,
@@ -201,6 +203,42 @@ class MainActivity : AppCompatActivity() {
 //            Log.d(TAG, "Second Coroutine Scope")
             task2()
         }
+
+
+        producer()
+        receiver()
+
+        GlobalScope.launch {
+            flowProducer().collect { it ->
+                Log.d(TAG, "onCreate: by flow $it")
+                binding.list = it.toString()
+            }
+        }
+    }
+
+
+    var channel = Channel<Int>()
+    fun producer() {
+        CoroutineScope(Dispatchers.IO).launch {
+            channel.send(1)
+            delay(10000)
+            channel.send(2)
+        }
+    }
+
+    fun receiver() {
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d(TAG, "receiver: ${channel.receive()}")
+//            Log.d(TAG, "receiver: ${channel.receive()}")
+        }
+    }
+
+    private fun flowProducer() = flow<Int> {
+        var list = Array(100) {i -> i + 10}
+        list.forEach {
+            delay(600)
+            emit(it)
+        }
     }
 
     suspend fun task1() {
@@ -209,15 +247,19 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG,"finished task 1")
     }
 
+
     private suspend fun getTheFollowers() {
       var job =  CoroutineScope(Dispatchers.IO).launch {
-            val fb = async { getFBFollowers() }
-            val insta = async { getInstaFollowers() }
-            binding.list = "${fb.await()} ${insta.await()}"
+          try {
+              val fb = async { getFBFollowers() }
+              val insta = async { getInstaFollowers() }
+              binding.list = "${fb.await()} ${insta.await()} ${coroutineContext}"
+          }catch (e : CancellationException) {
+              Log.d(TAG, "getTheFollowers: ")
+          }
         }
-        job.join()
+        job.cancel()
     }
-
     suspend fun getFBFollowers() : Int {
         delay(10000)
         return 100
@@ -302,3 +344,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 //}
+
+object  Single {
+    val moit : String? = null
+}
