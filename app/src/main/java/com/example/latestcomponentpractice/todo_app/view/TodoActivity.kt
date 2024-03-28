@@ -34,6 +34,7 @@ class TodoActivity : AppCompatActivity() {
         val repo = PersonRepository(database.personDAO)
         viewModel = ViewModelProvider(this, ToDoActivityViewModelFactory(repo))[TodoActivityViewModel::class.java]
 
+//        viewBinding.lifecycleOwner = this
         viewBinding.apply {
             toDoViewModel = viewModel
             personRecyclerViewId.layoutManager = LinearLayoutManager(this@TodoActivity)

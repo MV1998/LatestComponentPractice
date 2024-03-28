@@ -3,6 +3,7 @@ package com.example.latestcomponentpractice.todo_app.view_model
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,8 @@ class TodoActivityViewModel(private val repository: PersonRepository) : ViewMode
 
     val personLiveData = repository.persons
 
+    val userNameObservable : ObservableField<String> = ObservableField<String>()
+
     fun addPerson(name : String, age : String) {
         insert(Person(name, age.toInt()))
     }
@@ -26,3 +29,4 @@ class TodoActivityViewModel(private val repository: PersonRepository) : ViewMode
     }
 
 }
+

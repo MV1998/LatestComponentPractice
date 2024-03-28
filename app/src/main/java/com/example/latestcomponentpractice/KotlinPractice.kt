@@ -28,10 +28,10 @@ fun main() {
         }
     }
     println("main: ${boxList.size}")
-//    for (box in boxList) {
-//        runBlocking {
-//            box.startPackaging()
-//        }
-//    }
+    for (box in boxList) {
+        runBlocking {
+            box.startPackaging()
+        }
+    }
 
 }
