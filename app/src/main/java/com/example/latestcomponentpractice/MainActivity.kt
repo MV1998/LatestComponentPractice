@@ -32,6 +32,7 @@ import com.example.latestcomponentpractice.abstraction_practice.Horse
 import com.example.latestcomponentpractice.abstraction_practice.Mammal
 import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
+import com.example.latestcomponentpractice.observers.Observer
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -66,9 +67,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val single = Single
-        val s = Single
-        Log.d(TAG, "onCreate: ${single.hashCode()} ${s.hashCode()}")
+        lifecycle.addObserver(Observer())
 
         // view model
         userViewModel = ViewModelProvider(this,
@@ -204,7 +203,6 @@ class MainActivity : AppCompatActivity() {
             task2()
         }
 
-
         producer()
         receiver()
 
@@ -335,16 +333,4 @@ class MainActivity : AppCompatActivity() {
     private fun listProducts(productForSale: ProductForSale) {
         productForSale.details()
     }
-}
-
-//class AnyArray {
-//    companion object {
-//        inline fun <reified T> toTArray(size: Int) : Array<T> {
-//            return Array<T>(size) {it as T}
-//        }
-//    }
-//}
-
-object  Single {
-    val moit : String? = null
 }
