@@ -1,7 +1,9 @@
 package com.example.latestcomponentpractice
 
+import android.app.Service
 import android.content.Intent
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.ActionProvider.VisibilityListener
@@ -9,8 +11,11 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ServiceCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.latestcomponentpractice.Screens.CalculatorActivity
@@ -32,6 +37,7 @@ import com.example.latestcomponentpractice.abstraction_practice.Horse
 import com.example.latestcomponentpractice.abstraction_practice.Mammal
 import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
+import com.example.latestcomponentpractice.foreground_services.MyMediaPlaybackService
 import com.example.latestcomponentpractice.observers.Observer
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
 import kotlinx.coroutines.CancellationException
@@ -61,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     private final val TAG = javaClass.simpleName
     private lateinit var binding : ActivityMainBinding
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
@@ -205,6 +212,10 @@ class MainActivity : AppCompatActivity() {
 
         producer()
         receiver()
+//
+//        val intent = Intent(this, MyMediaPlaybackService::class.java)
+//        ContextCompat.startForegroundService(this, intent)
+//
 
         GlobalScope.launch {
             flowProducer().collect { it ->

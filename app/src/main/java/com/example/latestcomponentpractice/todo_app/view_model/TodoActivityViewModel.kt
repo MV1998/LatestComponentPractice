@@ -18,8 +18,6 @@ class TodoActivityViewModel(private val repository: PersonRepository) : ViewMode
 
     val personLiveData = repository.persons
 
-    val userNameObservable : ObservableField<String> = ObservableField<String>()
-
     fun addPerson(name : String, age : String) {
         insert(Person(name, age.toInt()))
     }

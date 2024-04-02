@@ -30,6 +30,7 @@ class TodoActivity : AppCompatActivity() {
 //        enableEdgeToEdge()
         setContentView(viewBinding.root)
 
+
         database = PersonDatabase.getInstance(applicationContext)
         val repo = PersonRepository(database.personDAO)
         viewModel = ViewModelProvider(this, ToDoActivityViewModelFactory(repo))[TodoActivityViewModel::class.java]

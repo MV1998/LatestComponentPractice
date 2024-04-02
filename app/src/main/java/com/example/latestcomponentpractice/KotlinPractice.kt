@@ -27,11 +27,44 @@ fun main() {
             })
         }
     }
-    println("main: ${boxList.size}")
-    for (box in boxList) {
-        runBlocking {
-            box.startPackaging()
+//    println("main: ${boxList.size}")
+//    for (box in boxList) {
+//        runBlocking {
+//            box.startPackaging()
+//        }
+//    }
+//
+//    Sample(12,2)
+
+    var arr = intArrayOf(1,0,1,0)
+    var totalCount = arr.size.toLong()
+    for(num in arr.indices) {
+        for (second in num+1..<arr.size) {
+            var isBreak = false
+            var subArray = mutableListOf<Int>()
+            for(it in num..second) {
+                subArray.add(arr[it])
+                if (subArray.size > 1 && subArray[subArray.size-1] == subArray[subArray.size-2]) {
+                    isBreak = true
+                    break
+                }
+            }
+            subArray.clear()
+            if(!isBreak) {
+                totalCount++
+            }
         }
     }
+    println("totalCount $totalCount")
+}
 
+class Sample( a : Int,b : Int) {
+
+    constructor(s: Int, d : Double) : this(s, d.toInt()) {
+        val mm = s
+    }
+
+    init {
+        val sss = a
+    }
 }
