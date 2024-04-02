@@ -27,7 +27,6 @@ class UserViewModel(private val initialState : ViewModelState) : ViewModel() {
 //                userLiveData.postValue(ViewModelState.Loaded(UserRepository.receiveAllUsers()))
 //            }, 5000)
 //        }
-
         viewModelScope.apply {
             launch(Dispatchers.IO) {
                 delay(5000)
