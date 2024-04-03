@@ -39,6 +39,7 @@ import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
 import com.example.latestcomponentpractice.foreground_services.MyMediaPlaybackService
 import com.example.latestcomponentpractice.observers.Observer
+import com.example.latestcomponentpractice.sqrt_app.SqrtActivity
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -174,6 +175,11 @@ class MainActivity : AppCompatActivity() {
                 val listViewIntent = Intent(this@MainActivity, TodoActivity::class.java)
                 startActivity(listViewIntent)
             }
+
+            sqrtApp.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, SqrtActivity::class.java)
+                startActivity(listViewIntent)
+            }
         }
 
         var mouse : String? = "Mohit"
@@ -217,12 +223,12 @@ class MainActivity : AppCompatActivity() {
 //        ContextCompat.startForegroundService(this, intent)
 //
 
-        GlobalScope.launch {
-            flowProducer().collect { it ->
-                Log.d(TAG, "onCreate: by flow $it")
-                binding.list = it.toString()
-            }
-        }
+//        GlobalScope.launch {
+//            flowProducer().collect { it ->
+//                Log.d(TAG, "onCreate: by flow $it")
+//                binding.list = it.toString()
+//            }
+//        }
     }
 
 

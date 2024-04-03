@@ -95,6 +95,12 @@
                 android:layout_height="wrap_content"
                 android:text="Open ToDo"/>
 
+            <Button
+                android:id="@+id/sqrtApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Sqrt"/>
+
         </LinearLayout>
 
         <ProgressBar
