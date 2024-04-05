@@ -32,7 +32,6 @@ class SqrtViewModel : ViewModel(), Observable {
     val squareRootOfNumber : LiveData<String>
         get() = _squareRootOfNumber
 
-
      private val _backgroundColor = MutableLiveData<Int>()
 
     val backgroundColor : LiveData<Int>
