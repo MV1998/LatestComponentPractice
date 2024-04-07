@@ -4,23 +4,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.latestcomponentpractice.R
+import com.example.latestcomponentpractice.todo_app.interfaces.ToDoItemClickListener
 import com.example.latestcomponentpractice.todo_app.model.Person
 
-class ToDoAdapter(private var personList: MutableList<Person>) :
+class ToDoAdapter(private var personList: MutableList<Person>,
+                  private val onLongClick : (Person) -> Boolean,
+                  private val onClick : (Person) -> Unit) :
     RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
 
     inner class ToDoViewHolder(view : View) : ViewHolder(view) {
         private var textViewOnePass : TextView
         private var textViewTwoPass : TextView
+        private var cardView : CardView
 
         init {
             textViewOnePass = view.findViewById(R.id.textViewOnePass)
             textViewTwoPass = view.findViewById(R.id.textViewTwoPass)
-            textViewTwoPass.setOnClickListener {
-
+            cardView = view.findViewById(R.id.cardView)
+            cardView.setOnClickListener {
+                onClick.invoke(personList[adapterPosition])
+            }
+            cardView.setOnLongClickListener {
+                onLongClick.invoke(personList[adapterPosition])
             }
         }
 

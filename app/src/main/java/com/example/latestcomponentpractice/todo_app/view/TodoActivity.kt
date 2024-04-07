@@ -1,6 +1,7 @@
 package com.example.latestcomponentpractice.todo_app.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.latestcomponentpractice.R
 import com.example.latestcomponentpractice.databinding.ActivityTodoBinding
 import com.example.latestcomponentpractice.todo_app.adapters.ToDoAdapter
+import com.example.latestcomponentpractice.todo_app.interfaces.ToDoItemClickListener
 import com.example.latestcomponentpractice.todo_app.model.Person
 import com.example.latestcomponentpractice.todo_app.repository.PersonRepository
 import com.example.latestcomponentpractice.todo_app.room_db.PersonDatabase
@@ -39,7 +41,12 @@ class TodoActivity : AppCompatActivity() {
         viewBinding.apply {
             toDoViewModel = viewModel
             personRecyclerViewId.layoutManager = LinearLayoutManager(this@TodoActivity)
-            toDoAdapter = ToDoAdapter(viewModel.personLiveData.value ?: mutableListOf())
+            toDoAdapter = ToDoAdapter(viewModel.personLiveData.value ?: mutableListOf(), onLongClick = {
+                Toast.makeText(this@TodoActivity, "${it.name}", Toast.LENGTH_LONG).show()
+                true
+            }) {
+                viewModel.deletePerson(it)
+            }
             personRecyclerViewId.adapter =  toDoAdapter
         }
 

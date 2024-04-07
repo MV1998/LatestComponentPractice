@@ -16,10 +16,14 @@ import kotlinx.coroutines.launch
 
 class TodoActivityViewModel(private val repository: PersonRepository) : ViewModel() {
 
-    val personLiveData = repository.persons
+    var personLiveData = repository.persons
 
     fun addPerson(name : String, age : String) {
-        insert(Person(name, age.toInt()))
+        insert(Person(name, age.toInt(), 1))
+    }
+
+    fun deletePerson(person : Person) = viewModelScope.launch {
+        repository.delete(person)
     }
 
     private fun insert(person : Person) = viewModelScope.launch() {

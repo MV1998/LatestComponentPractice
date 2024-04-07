@@ -1,16 +1,15 @@
 package com.example.latestcomponentpractice.sqrt_app
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.latestcomponentpractice.databinding.ActivitySqrtBinding
 import com.example.latestcomponentpractice.sqrt_app.view_model.SqrtViewModel
 
 class SqrtActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySqrtBinding
-    private lateinit var sqrtViewModel: SqrtViewModel
+    private val sqrtViewModel: SqrtViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +17,6 @@ class SqrtActivity : AppCompatActivity() {
 
         binding = ActivitySqrtBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        sqrtViewModel = ViewModelProvider(this)[SqrtViewModel::class.java]
 
         binding.sqrtViewModel = sqrtViewModel
         binding.lifecycleOwner = this

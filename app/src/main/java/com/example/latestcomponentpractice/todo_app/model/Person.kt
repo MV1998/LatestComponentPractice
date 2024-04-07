@@ -12,6 +12,9 @@ data class Person(
     @ColumnInfo(name = "person_age")
     val age : Int,
 
+    @ColumnInfo(name="isActive")
+    val isActive : Int,
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "person_id")
     val id : Int = 0,
