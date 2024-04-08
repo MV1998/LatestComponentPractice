@@ -75,6 +75,11 @@ dependencies {
     annotationProcessor libs.roomCompiler
 
     kapt libs.roomCompiler
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.gsonConverter)
+
 }
 
 configurations {

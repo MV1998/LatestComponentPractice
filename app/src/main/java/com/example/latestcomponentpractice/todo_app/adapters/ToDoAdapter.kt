@@ -1,6 +1,8 @@
 package com.example.latestcomponentpractice.todo_app.adapters
 
+import android.view.ContextMenu
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -14,7 +16,7 @@ import com.example.latestcomponentpractice.todo_app.model.Person
 class ToDoAdapter(private var personList: MutableList<Person>,
                   private val onLongClick : (Person) -> Boolean,
                   private val onClick : (Person) -> Unit) :
-    RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
+    RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>(), View.OnCreateContextMenuListener{
 
     inner class ToDoViewHolder(view : View) : ViewHolder(view) {
         private var textViewOnePass : TextView
@@ -31,6 +33,7 @@ class ToDoAdapter(private var personList: MutableList<Person>,
             cardView.setOnLongClickListener {
                 onLongClick.invoke(personList[adapterPosition])
             }
+            cardView.setOnCreateContextMenuListener(this@ToDoAdapter)
         }
 
         fun bind() {
@@ -56,5 +59,47 @@ class ToDoAdapter(private var personList: MutableList<Person>,
     fun notifyDataChange(updateList : MutableList<Person>) {
         this.personList = updateList
         notifyItemChanged(updateList.size)
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+
+//        super.onCreateContextMenu(menu, v, menuInfo)
+//        val inflater : MenuInflater = menuInflater
+//        inflater.inflate(R.menu.floating_menu, menu)
+    }
+
+
+    fun findFirstNonRepeatingCharacter(s : String) : Char? {
+//     if (s.length == 0) return ' '
+//     if (s.length == 1) return s[0]
+//     if (s.length == 2 && s[0] == s[1])
+//         return ' '
+//     else s[0]
+//     var i = 0
+//     for(index in 1..<s.length) {
+//          if (s[i] == s[index]) {
+//             ++i
+//         }
+//     }
+//     println(i)
+//     if (i == s.length-1)
+//         return ' '
+//     else return s[i]
+
+        if (s.isEmpty()) return null
+        if (s.length == 1) return s[0]
+
+        var ch : Char? = null
+        var i = 0
+        var chInt = s[0].code
+        print(chInt)
+        for (index in 1..<s.length) {
+            chInt = chInt xor s[index].code
+        }
+        return null
     }
 }

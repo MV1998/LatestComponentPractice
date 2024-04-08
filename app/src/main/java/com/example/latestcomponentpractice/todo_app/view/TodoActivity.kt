@@ -1,6 +1,10 @@
 package com.example.latestcomponentpractice.todo_app.view
 
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +16,15 @@ import com.example.latestcomponentpractice.todo_app.adapters.ToDoAdapter
 import com.example.latestcomponentpractice.todo_app.interfaces.ToDoItemClickListener
 import com.example.latestcomponentpractice.todo_app.model.Person
 import com.example.latestcomponentpractice.todo_app.repository.PersonRepository
+import com.example.latestcomponentpractice.todo_app.repository.QuotesAPI
+import com.example.latestcomponentpractice.todo_app.repository.QuotesRepository
+import com.example.latestcomponentpractice.todo_app.repository.RetrofitHelper
 import com.example.latestcomponentpractice.todo_app.room_db.PersonDatabase
 import com.example.latestcomponentpractice.todo_app.view_model.ToDoActivityViewModelFactory
 import com.example.latestcomponentpractice.todo_app.view_model.TodoActivityViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TodoActivity : AppCompatActivity() {
 
@@ -45,7 +55,7 @@ class TodoActivity : AppCompatActivity() {
                 Toast.makeText(this@TodoActivity, "${it.name}", Toast.LENGTH_LONG).show()
                 true
             }) {
-                viewModel.deletePerson(it)
+                //viewModel.deletePerson(it)
             }
             personRecyclerViewId.adapter =  toDoAdapter
         }
@@ -58,7 +68,18 @@ class TodoActivity : AppCompatActivity() {
         viewModel.personLiveData.observe(this) {
             toDoAdapter.notifyDataChange(it)
         }
+
+        registerForContextMenu(viewBinding.personRecyclerViewId)
+
+        val quotesAPI = RetrofitHelper.getInstance().create(QuotesAPI::class.java)
+        CoroutineScope(Dispatchers.IO).launch {
+            val quotesRepository = QuotesRepository(quotesAPI)
+            quotesRepository.getQuotes()?.let {
+                viewModel.addPerson(it.page.toString(),  it.totalPages.toString())
+            }
+        }
     }
+
 
     private fun clearTextField() {
         viewBinding.apply {
