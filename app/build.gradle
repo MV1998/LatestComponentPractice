@@ -64,17 +64,17 @@ dependencies {
 
     implementation libs.dagger
 
-    kapt libs.hilt.compiler
-    kapt libs.dagger.compiler
+    annotationProcessor libs.hilt.compiler
+    annotationProcessor libs.hilt.android.compiler
 
-    implementation libs.addXMPP
-    implementation libs.addXMPPTCP
+//    implementation libs.addXMPP
+//    implementation libs.addXMPPTCP
 
     implementation libs.androidx.room
     implementation libs.kotlin.room.ktx
     annotationProcessor libs.roomCompiler
 
-    kapt libs.roomCompiler
+    //kapt libs.roomCompiler
 
     //retrofit
     implementation(libs.retrofit)
@@ -82,7 +82,11 @@ dependencies {
 
 }
 
-configurations {
-    all*.exclude group: 'xpp3', module: 'xpp3'
-    all*.exclude group: 'xpp3', module: 'xpp3_min'
+kapt {
+    correctErrorTypes true
 }
+
+//configurations {
+//    all*.exclude group: 'xpp3', module: 'xpp3'
+//    all*.exclude group: 'xpp3', module: 'xpp3_min'
+//}

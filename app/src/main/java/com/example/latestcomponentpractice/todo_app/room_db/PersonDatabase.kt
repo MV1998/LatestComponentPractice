@@ -17,7 +17,7 @@ abstract class PersonDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE : PersonDatabase? = null
 
-        val migration_1_2 = object : Migration(1, 2) {
+        private val migration_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE person ADD COLUMN isActive INTEGER NOT NULL DEFAULT(1)")
             }

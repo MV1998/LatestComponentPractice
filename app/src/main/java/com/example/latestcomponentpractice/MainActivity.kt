@@ -14,10 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ServiceCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.latestcomponentpractice.Screens.CalculatorActivity
 import com.example.latestcomponentpractice.Screens.DrawerActivityExample
 import com.example.latestcomponentpractice.Screens.FragmentPracticeActivity
@@ -37,10 +34,13 @@ import com.example.latestcomponentpractice.abstraction_practice.Horse
 import com.example.latestcomponentpractice.abstraction_practice.Mammal
 import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
+import com.example.latestcomponentpractice.di.UserRegistrationService
 import com.example.latestcomponentpractice.foreground_services.MyMediaPlaybackService
 import com.example.latestcomponentpractice.observers.Observer
 import com.example.latestcomponentpractice.sqrt_app.SqrtActivity
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.internal.DaggerGenerated
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -58,6 +58,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Flow
+import javax.inject.Inject
 import kotlin.math.log
 import kotlin.math.sin
 
@@ -68,6 +69,9 @@ class MainActivity : AppCompatActivity() {
     private final val TAG = javaClass.simpleName
     private lateinit var binding : ActivityMainBinding
 
+    @Inject
+    lateinit var userRegistrationService: UserRegistrationService
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +80,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         lifecycle.addObserver(Observer())
+
+
+        userRegistrationService.emailService.sendEmail("", "")
 
         // view model
         userViewModel = ViewModelProvider(this,
