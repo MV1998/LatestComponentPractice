@@ -64,15 +64,15 @@ dependencies {
 
     implementation libs.dagger
 
-    annotationProcessor libs.hilt.compiler
-    annotationProcessor libs.hilt.android.compiler
+    kapt libs.hilt.compiler
+    kapt libs.hilt.android.compiler
 
 //    implementation libs.addXMPP
 //    implementation libs.addXMPPTCP
 
     implementation libs.androidx.room
     implementation libs.kotlin.room.ktx
-    annotationProcessor libs.roomCompiler
+    kapt libs.roomCompiler
 
     //kapt libs.roomCompiler
 

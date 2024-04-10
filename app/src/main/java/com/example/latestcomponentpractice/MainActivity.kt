@@ -34,7 +34,6 @@ import com.example.latestcomponentpractice.abstraction_practice.Horse
 import com.example.latestcomponentpractice.abstraction_practice.Mammal
 import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
-import com.example.latestcomponentpractice.di.UserRegistrationService
 import com.example.latestcomponentpractice.foreground_services.MyMediaPlaybackService
 import com.example.latestcomponentpractice.observers.Observer
 import com.example.latestcomponentpractice.sqrt_app.SqrtActivity
@@ -62,6 +61,7 @@ import javax.inject.Inject
 import kotlin.math.log
 import kotlin.math.sin
 
+//@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var userViewModel : UserViewModel
@@ -69,8 +69,8 @@ class MainActivity : AppCompatActivity() {
     private final val TAG = javaClass.simpleName
     private lateinit var binding : ActivityMainBinding
 
-    @Inject
-    lateinit var userRegistrationService: UserRegistrationService
+//    @Inject
+//    lateinit var userRegistrationService: UserRegistrationService
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,8 +81,8 @@ class MainActivity : AppCompatActivity() {
 
         lifecycle.addObserver(Observer())
 
-
-        userRegistrationService.emailService.sendEmail("", "")
+       // userRegistrationService.registerUser("", "")
+       // userRegistrationService.emailService.sendEmail("mv", "another service")
 
         // view model
         userViewModel = ViewModelProvider(this,
