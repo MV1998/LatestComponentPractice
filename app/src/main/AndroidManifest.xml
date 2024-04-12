@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApplication"
@@ -23,6 +23,9 @@
         android:theme="@style/Theme.LatestComponentPractice"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".task_back_stack.TaskBackStack"
+            android:exported="false" />
         <activity
             android:name=".navigation_component_app.QuizActivity"
             android:exported="false" />
