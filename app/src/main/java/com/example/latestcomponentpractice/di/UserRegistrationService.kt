@@ -1,7 +1,7 @@
 package com.example.latestcomponentpractice.di
 //
 //import javax.inject.Inject
-//
+
 //class UserRegistrationService @Inject constructor(
 //    val userRepository: UserRepository,
 //    val emailService: EmailService) {
