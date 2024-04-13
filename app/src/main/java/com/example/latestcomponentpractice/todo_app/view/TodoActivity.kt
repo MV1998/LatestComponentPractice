@@ -1,25 +1,23 @@
 package com.example.latestcomponentpractice.todo_app.view
 
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.latestcomponentpractice.R
 import com.example.latestcomponentpractice.databinding.ActivityTodoBinding
 import com.example.latestcomponentpractice.todo_app.adapters.ToDoAdapter
-import com.example.latestcomponentpractice.todo_app.interfaces.ToDoItemClickListener
-import com.example.latestcomponentpractice.todo_app.model.Person
+import com.example.latestcomponentpractice.todo_app.model.Pen
+import com.example.latestcomponentpractice.todo_app.repository.NewsAPI
+import com.example.latestcomponentpractice.todo_app.repository.NewsRepository
+import com.example.latestcomponentpractice.todo_app.repository.NewsRetrofitHelper
+import com.example.latestcomponentpractice.todo_app.repository.PenRepository
 import com.example.latestcomponentpractice.todo_app.repository.PersonRepository
 import com.example.latestcomponentpractice.todo_app.repository.QuotesAPI
 import com.example.latestcomponentpractice.todo_app.repository.QuotesRepository
 import com.example.latestcomponentpractice.todo_app.repository.RetrofitHelper
-import com.example.latestcomponentpractice.todo_app.room_db.PersonDatabase
+import com.example.latestcomponentpractice.todo_app.room_db.AppDatabase
 import com.example.latestcomponentpractice.todo_app.view_model.ToDoActivityViewModelFactory
 import com.example.latestcomponentpractice.todo_app.view_model.TodoActivityViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +33,7 @@ class TodoActivity : AppCompatActivity() {
     private lateinit var viewModel: TodoActivityViewModel
 
     private lateinit var toDoAdapter: ToDoAdapter
-    private lateinit var database: PersonDatabase
+    private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +41,11 @@ class TodoActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
 
-        database = PersonDatabase.getInstance(applicationContext)
-        val repo = PersonRepository(database.personDAO)
+        database = AppDatabase.getInstance(applicationContext)
+        val repo = PersonRepository(database.personDAO())
+        val penRepository = PenRepository(database.penDAO())
         viewModel = ViewModelProvider(this, ToDoActivityViewModelFactory(repo))[TodoActivityViewModel::class.java]
-
+//
 //        viewBinding.lifecycleOwner = this
         viewBinding.apply {
             toDoViewModel = viewModel
@@ -72,14 +71,27 @@ class TodoActivity : AppCompatActivity() {
         registerForContextMenu(viewBinding.personRecyclerViewId)
 
         val quotesAPI = RetrofitHelper.getInstance().create(QuotesAPI::class.java)
+
+
         CoroutineScope(Dispatchers.IO).launch {
             val quotesRepository = QuotesRepository(quotesAPI)
             quotesRepository.getQuotes()?.let {
-                viewModel.addPerson(it.page.toString(),  it.totalPages.toString())
+                it.results.forEach { quote ->
+                    viewModel.addPerson(quote.author,  quote.length.toString())
+                }
+            }
+        }
+
+        val newsAPI = NewsRetrofitHelper.getNewsRetrofitHelper().create(NewsAPI::class.java)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val newsRepository = NewsRepository(newsAPI)
+            newsRepository.getMPNews()?.let {
+                Log.d(javaClass.simpleName, "onCreate: $it")
+                penRepository.addPen(Pen(0, "Natraj", true, 3.00))
             }
         }
     }
-
 
     private fun clearTextField() {
         viewBinding.apply {
