@@ -36,6 +36,7 @@ import com.example.latestcomponentpractice.abstraction_practice.ProductForSale
 import com.example.latestcomponentpractice.databinding.ActivityMainBinding
 import com.example.latestcomponentpractice.foreground_services.MyMediaPlaybackService
 import com.example.latestcomponentpractice.observers.Observer
+import com.example.latestcomponentpractice.scoped_storage.ScopedStorageActivity
 import com.example.latestcomponentpractice.sqrt_app.SqrtActivity
 import com.example.latestcomponentpractice.todo_app.view.TodoActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         lifecycle.addObserver(Observer())
+
+        openFileOutput("Simple.txt", MODE_PRIVATE).use {stream ->
+            filesDir.listFiles()?.forEach {
+                Log.d(TAG, "onCreate: ${it.absolutePath}")
+            }
+        }
 
        // userRegistrationService.registerUser("", "")
        // userRegistrationService.emailService.sendEmail("mv", "another service")
@@ -185,6 +192,10 @@ class MainActivity : AppCompatActivity() {
 
             sqrtApp.setOnClickListener {
                 val listViewIntent = Intent(this@MainActivity, SqrtActivity::class.java)
+                startActivity(listViewIntent)
+            }
+            imageBitmap.setOnClickListener {
+                val listViewIntent = Intent(this@MainActivity, ScopedStorageActivity::class.java)
                 startActivity(listViewIntent)
             }
         }

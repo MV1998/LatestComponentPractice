@@ -71,35 +71,4 @@ class ToDoAdapter(private var personList: MutableList<Person>,
 //        val inflater : MenuInflater = menuInflater
 //        inflater.inflate(R.menu.floating_menu, menu)
     }
-
-
-    fun findFirstNonRepeatingCharacter(s : String) : Char? {
-//     if (s.length == 0) return ' '
-//     if (s.length == 1) return s[0]
-//     if (s.length == 2 && s[0] == s[1])
-//         return ' '
-//     else s[0]
-//     var i = 0
-//     for(index in 1..<s.length) {
-//          if (s[i] == s[index]) {
-//             ++i
-//         }
-//     }
-//     println(i)
-//     if (i == s.length-1)
-//         return ' '
-//     else return s[i]
-
-        if (s.isEmpty()) return null
-        if (s.length == 1) return s[0]
-
-        var ch : Char? = null
-        var i = 0
-        var chInt = s[0].code
-        print(chInt)
-        for (index in 1..<s.length) {
-            chInt = chInt xor s[index].code
-        }
-        return null
-    }
 }

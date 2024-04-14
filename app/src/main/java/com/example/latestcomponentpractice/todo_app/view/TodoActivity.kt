@@ -6,8 +6,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.latestcomponentpractice.databinding.ActivityTodoBinding
 import com.example.latestcomponentpractice.todo_app.adapters.ToDoAdapter
+import com.example.latestcomponentpractice.todo_app.adapters.ToDoListAdapter
 import com.example.latestcomponentpractice.todo_app.model.Pen
 import com.example.latestcomponentpractice.todo_app.repository.NewsAPI
 import com.example.latestcomponentpractice.todo_app.repository.NewsRepository
@@ -23,6 +25,7 @@ import com.example.latestcomponentpractice.todo_app.view_model.TodoActivityViewM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class TodoActivity : AppCompatActivity() {
 
@@ -32,7 +35,8 @@ class TodoActivity : AppCompatActivity() {
 
     private lateinit var viewModel: TodoActivityViewModel
 
-    private lateinit var toDoAdapter: ToDoAdapter
+//    private lateinit var toDoAdapter: ToDoAdapter
+    private lateinit var toDoListAdapter: ToDoListAdapter
     private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,14 +53,19 @@ class TodoActivity : AppCompatActivity() {
 //        viewBinding.lifecycleOwner = this
         viewBinding.apply {
             toDoViewModel = viewModel
-            personRecyclerViewId.layoutManager = LinearLayoutManager(this@TodoActivity)
-            toDoAdapter = ToDoAdapter(viewModel.personLiveData.value ?: mutableListOf(), onLongClick = {
-                Toast.makeText(this@TodoActivity, "${it.name}", Toast.LENGTH_LONG).show()
-                true
-            }) {
-                //viewModel.deletePerson(it)
+            personRecyclerViewId.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+//            toDoAdapter = ToDoAdapter(viewModel.personLiveData.value ?: mutableListOf(), onLongClick = {
+//                Toast.makeText(this@TodoActivity, "${it.name}", Toast.LENGTH_LONG).show()
+//                true
+//            }) {
+//                //viewModel.deletePerson(it)
+//            }
+          //  personRecyclerViewId.adapter =  toDoAdapter
+
+            toDoListAdapter = ToDoListAdapter {
+                Log.d("TAG", "onCreate: ${it.name}")
             }
-            personRecyclerViewId.adapter =  toDoAdapter
+            personRecyclerViewId.adapter = toDoListAdapter
         }
 
         viewBinding.addBtn.setOnClickListener {
@@ -65,7 +74,8 @@ class TodoActivity : AppCompatActivity() {
         }
 
         viewModel.personLiveData.observe(this) {
-            toDoAdapter.notifyDataChange(it)
+        //    toDoAdapter.notifyDataChange(it)
+            toDoListAdapter.submitList(it)
         }
 
         registerForContextMenu(viewBinding.personRecyclerViewId)
@@ -77,7 +87,7 @@ class TodoActivity : AppCompatActivity() {
             val quotesRepository = QuotesRepository(quotesAPI)
             quotesRepository.getQuotes()?.let {
                 it.results.forEach { quote ->
-                    viewModel.addPerson(quote.author,  quote.length.toString())
+                    viewModel.addPerson(quote.content,  Random.nextInt(111111, 999999).toString())
                 }
             }
         }

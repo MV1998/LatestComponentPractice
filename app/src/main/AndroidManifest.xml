@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".scoped_storage.ScopedStorageActivity"
+            android:exported="false" />
+        <activity
             android:name=".task_back_stack.TaskBackStack"
             android:exported="false" />
         <activity

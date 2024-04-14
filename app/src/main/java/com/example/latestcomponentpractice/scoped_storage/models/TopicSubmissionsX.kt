@@ -1,0 +1,3 @@
+package com.example.latestcomponentpractice.scoped_storage.models
+
+class TopicSubmissionsX
