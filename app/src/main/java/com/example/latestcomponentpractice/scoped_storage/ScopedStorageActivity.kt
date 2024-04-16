@@ -1,10 +1,12 @@
 package com.example.latestcomponentpractice.scoped_storage
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.latestcomponentpractice.R
 import com.example.latestcomponentpractice.databinding.ActivityScopedStorageBinding
 import com.example.latestcomponentpractice.scoped_storage.api_service.ImageAPI
@@ -24,7 +26,7 @@ class ScopedStorageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scoped_storage)
+        setContentView(binding.root)
 
 
         var client = RetrofitClient.getClient()
@@ -34,21 +36,43 @@ class ScopedStorageActivity : AppCompatActivity() {
 //            Log.d(javaClass.simpleName, "onCreate: ${result.body()}")
             result.body()?.let {
                 Log.d(javaClass.simpleName, "onCreate: ${it.urls.full}")
-                val url = URL("https://images.unsplash.com/photo-1620163280053-68782bd98475?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1OTA1NjB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTMxMTc1Nzl8&ixlib=rb-4.0.3&q=85")
+                val url = URL(it.urls.full)
                 val connect : HttpURLConnection = url.openConnection() as HttpURLConnection
                 connect.doOutput = true
                 connect.connect()
-                Log.d(javaClass.simpleName, "onCreate: ${connect.inputStream}")
                 val stream = connect.inputStream
-                val bmOptions = BitmapFactory.Options()
-                // Decode InputStream into Bitmap
                 val bitmap: Bitmap? = BitmapFactory.decodeStream(stream)
-                val bitmap2 = Bitmap.createScaledBitmap(bitmap!!, 600, 600, true)
-                withContext(Dispatchers.Main) {
-                    binding.testingImageView.setImageBitmap(bitmap2)
+//                val bitmap2 = Bitmap.createScaledBitmap(bitmap!!, 100, 100, true)
+
+//                openFileOutput("file.jpeg", MODE_PRIVATE).use { stream ->
+//                    if (bitmap2.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
+//                        Log.d(javaClass.simpleName, "onCreate: images has been saved.")
+//                    }
+//                }
+//                Log.d(javaClass.simpleName, "onCreate: ${filesDir.absolutePath}")
+//                filesDir.listFiles().forEach {
+//                    Log.d(javaClass.simpleName, "onCreate: ${it.absolutePath}")
+//                }
+
+                launch(Dispatchers.Main) {
+//                    binding.testingImageView.setImageBitmap(bitmap)
+                    Glide.with(this@ScopedStorageActivity)
+                        .load(bitmap)
+                        .into(binding.testingImageView)
                     Log.d(javaClass.simpleName, "onCreate: should update now")
                 }
             }
         }
+
+        binding.launcherModesBtn.setOnClickListener {
+            val intent = Intent(this@ScopedStorageActivity, ScopedStorageActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d(javaClass.simpleName, "onNewIntent: ")
     }
 }

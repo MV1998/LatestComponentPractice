@@ -81,6 +81,9 @@ dependencies {
     implementation(libs.gsonConverter)
     implementation(libs.scalarConverter)
 
+    implementation(libs.glide)
+    kapt libs.glideCompiler
+
 }
 
 kapt {

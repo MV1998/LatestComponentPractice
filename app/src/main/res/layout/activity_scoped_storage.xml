@@ -5,11 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".scoped_storage.ScopedStorageActivity">
+    tools:context=".scoped_storage.ScopedStorageActivity"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/testingImageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:src="@drawable/gradient_background" />
+
+    <Button
+        android:id="@+id/launcherModesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click"></Button>
 </LinearLayout>

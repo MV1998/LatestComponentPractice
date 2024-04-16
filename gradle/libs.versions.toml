@@ -22,11 +22,13 @@ lifecycleViewmodelKtx = "2.7.0"
 roomVersion = "2.6.1"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
+glideVersion = "4.16.0"
 
 
 [libraries]
 
 # Kapt Compilers
+glideCompiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glideVersion" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
@@ -56,6 +58,7 @@ androidx-room = {group = "androidx.room", name = "room-runtime", version.ref = "
 kotlin-room-ktx = {group = "androidx.room", name = "room-ktx", version.ref = "roomVersion"}
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+glide = {module = "com.github.bumptech.glide:glide", version.ref = "glideVersion"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
