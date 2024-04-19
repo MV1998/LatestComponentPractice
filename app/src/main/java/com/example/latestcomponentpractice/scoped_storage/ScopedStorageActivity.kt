@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -70,6 +71,23 @@ class ScopedStorageActivity : AppCompatActivity() {
         }
     }
 
+    fun savePhotoToInternalStorage(fileName : String, bmp : Bitmap) : Boolean {
+        return try {
+            // create a file and gives the output stream to write the image data in it.
+            openFileOutput("$fileName.jpg", MODE_PRIVATE).use {
+                if (!bmp.compress(Bitmap.CompressFormat.JPEG, 98, it)) {
+                    throw IOException("Couldn't save bitmap.")
+                }
+            }
+            true
+        }catch (e: IOException) {
+            false
+        }
+    }
+
+    fun retrievePhotosFromInternalStorage() {
+
+    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
