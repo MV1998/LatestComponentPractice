@@ -65,6 +65,7 @@ import kotlin.math.sin
 //@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    
     private lateinit var userViewModel : UserViewModel
     var currentText = "1"
     private final val TAG = javaClass.simpleName
