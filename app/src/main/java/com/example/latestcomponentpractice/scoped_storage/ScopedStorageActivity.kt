@@ -20,7 +20,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class ScopedStorageActivity : AppCompatActivity() {
-
     private val binding : ActivityScopedStorageBinding by lazy {
         ActivityScopedStorageBinding.inflate(layoutInflater)
     }
