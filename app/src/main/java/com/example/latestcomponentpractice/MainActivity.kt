@@ -157,6 +157,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(calculatorIntent)
             }
 
+
             videoViewBtn.setOnClickListener {
                 val videoIntent = Intent(this@MainActivity, VideoViewActivity::class.java)
                 startActivity(videoIntent)
